@@ -1,0 +1,87 @@
+@import url('//fonts.cdnfonts.com/css/billabong');
+
+.topbar-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50px;
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0975);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 120px;
+}
+
+/* --------------------------------------- left, logo or name of app ---------------------------------------------*/
+
+.topbar-left > a {
+    position: relative;
+    color: #000000;
+    font-size: 30px;
+    font-family: "billabong", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* --------------------------------------- mid, search box ----------------------------------------------------*/
+
+.topbar-mid {
+    position: relative;
+}
+
+.topbar-mid > input {
+    background-color: #fafafa;
+    padding: 3px 20px 3px 33px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.0975);
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.topbar-mid > .search-icon {
+    position: absolute;
+    top: 6px;
+    left: 10px;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/*--------------------------------------- right, navigation icons --------------------------------------------*/
+
+.topbar-right {
+    display: flex;
+    gap: 14px;
+}
+
+.navigation-icon {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.profile-image {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.icon-badge {
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    color: white;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 900;
+}

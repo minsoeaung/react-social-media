@@ -1,0 +1,51 @@
+.post {
+    width: 80%;
+    margin: 10px auto 0;
+}
+
+.post-container {
+    border: 1px solid #c4c0c0;
+    border-radius: 3px;
+    padding: 15px 15px;
+    background-color: white;
+}
+
+.post-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.post-top > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-mid {
+    margin-top: 12px;
+}
+
+.post-mid > img {
+    width: 100%;
+    margin-top: 12px;
+    border-radius: 5px;
+}
+
+.post-bottom {
+    margin-top: 12px;
+}
+
+.post-bottom > div span {
+    margin-right: 12px;
+}
+
+.post-bottom-gp {
+    display: flex;
+    margin-top: 12px;
+}
+
+.post-bottom-gp > * {
+    margin-right: 14px;
+}

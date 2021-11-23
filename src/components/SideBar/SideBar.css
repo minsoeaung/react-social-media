@@ -1,0 +1,10 @@
+.sidebar {
+    flex: 1;
+    height: calc(100vh - 50px);
+    position: sticky;
+}
+
+.sidebar-container {
+    position: fixed;
+    padding: 20px;
+}

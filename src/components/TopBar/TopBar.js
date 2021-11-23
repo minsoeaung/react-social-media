@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 
 const TopBar = () => {
     return (
@@ -22,7 +22,7 @@ const TopBar = () => {
                     <HomeOutlinedIcon/>
                 </div>
                 <div className="navigation-icon">
-                    <ChatBubbleOutlineIcon/>
+                    <CommentOutlinedIcon/>
                     <span className="icon-badge">1</span>
                 </div>
                 <div className="navigation-icon">

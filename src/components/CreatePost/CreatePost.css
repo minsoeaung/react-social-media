@@ -1,0 +1,43 @@
+.create-post {
+    width: 80%;
+    margin: 10px auto 0;
+}
+
+.create-post-container {
+    border: 1px solid #c4c0c0;
+    border-radius: 3px;
+    padding: 15px 15px;
+    background-color: white;
+}
+
+.create-post-top {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.create-post-top > img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.create-post-top > input {
+    width: 90%;
+    background-color: #fafafa;
+    padding: 3px 10px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.0975);
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.create-post-top > input:focus {
+    outline: none !important;
+    border: 1px solid #c4c0c0;
+}
+
+.create-post-bottom {
+    margin-top: 12px;
+}

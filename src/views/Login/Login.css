@@ -1,0 +1,103 @@
+.login {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #fafafa;
+}
+
+.login-container {
+    text-align: center;
+    border: 1px solid #c4c0c0;
+}
+
+.login-body {
+    width: 350px;
+    background: #fff;
+    border-radius: 5px;
+    padding-bottom: 15px;
+}
+
+.title {
+    padding: 30px 0;
+    text-transform: capitalize;
+    font-size: 25px;
+}
+
+form {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+form input {
+    margin-bottom: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+    outline: none;
+}
+
+form input:focus {
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    background: #efefef;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    padding-left: 10px;
+    position: relative;
+    height: 35px;
+    font-size: 17px;
+}
+
+form button {
+    border: none;
+    background: darkslategrey;
+    padding: 5px 0;
+    margin-top: 5px;
+    color: #fff;
+    border-radius: 3px;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    outline: none;
+    cursor: pointer;
+}
+
+form button:active {
+    background: #2c58fe;
+    transform: scale(0.995);
+}
+
+.forget-id {
+    margin: 15px;
+}
+
+.forget-id a {
+    text-decoration: none;
+    color: #025fd2;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.signup {
+    position: relative;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+}
+
+.signup span {
+    margin-left: 5px;
+    color: #008aff;
+    font-weight: bold;
+    cursor: pointer;
+}

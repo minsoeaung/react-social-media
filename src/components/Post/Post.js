@@ -1,9 +1,23 @@
 import './Post.css'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import {Users} from '../../dummyData'
+import {useState} from "react";
 
 const Post = ({post}) => {
+    const [likeCount, setLikeCount] = useState(post.like)
+    const [isLiked, setIsLiked] = useState(false)
+    const [commentInput, setCommentInput] = useState("")
+
+    function likeHandler() {
+        setIsLiked(!isLiked)
+        setLikeCount(isLiked ? likeCount - 1 : likeCount + 1)
+    }
+
+    function commentHandler() {
+
+    }
+
     return (
         <div className="post">
             <div className="post-container">
@@ -32,11 +46,21 @@ const Post = ({post}) => {
                 {/* likes and comments */}
                 <div className="post-bottom">
                     <div className="post-bottom-gp">
-                        <span>{post.like} likes | {post.comment} comments</span>
+                        <span>{likeCount} likes | {post.comment} comments</span>
                     </div>
                     <div className="post-bottom-gp">
-                        <FavoriteBorderOutlinedIcon/>
-                        <ModeCommentOutlinedIcon/>
+                        {isLiked ?
+                            <FavoriteIcon onClick={likeHandler} className="pointer"/>
+                            :
+                            <FavoriteBorderIcon onClick={likeHandler} className="pointer"/>
+                        }
+                        <input
+                            type="text"
+                            placeholder="Add a comment..."
+                            value={commentInput}
+                            onChange={e => setCommentInput(e.target.value)}
+                        />
+                        <button onClick={commentHandler}>POST</button>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 .post {
     width: 80%;
-    margin: 10px auto 0;
+    margin: 22px auto 0;
 }
 
 .post-container {
@@ -12,11 +12,18 @@
 
 .post-top {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 20px;
 }
 
-.post-top > img {
+.post-top > div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.post-top > div > img {
     width: 32px;
     height: 32px;
     border-radius: 50%;

@@ -1,16 +1,13 @@
 import './SideBar.css'
+import OnlineFriends from "../OnlineFriendList/OnlineFriends";
+import {Users} from '../../dummyData'
 
 const SideBar = () => {
     return (
         <aside className="sidebar">
             <div className="sidebar-container">
-                <p>Lorem ipsum dolor sit.</p>
-                <p>Lorem ipsum dolor sit.</p>
-                <p>Lorem ipsum dolor sit.</p>
-                <p>Lorem ipsum dolor sit.</p>
-                <p>Lorem ipsum dolor sit.</p>
-                <p>Lorem ipsum dolor sit.</p>
-                <p>Lorem ipsum dolor sit.</p>
+                <h3>Online Friends</h3>
+                <OnlineFriends users={Users}/>
             </div>
         </aside>
     )

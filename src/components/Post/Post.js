@@ -1,32 +1,38 @@
 import './Post.css'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import {Users} from '../../dummyData'
 
-const Post = () => {
+const Post = ({post}) => {
     return (
         <div className="post">
             <div className="post-container">
 
-                {/* user profile image and caption */}
+                {/* profile image, username and date */}
                 <div className="post-top">
-                    <img
-                        src="/assets/person/1.jpeg"
-                    />
-                    <p>username</p>
+                    <div>
+                        <img
+                            src={`assets/${Users.find(user => user.id === post.userId)?.profilePicture}`}
+                            alt="post image"
+                        />
+                        <h4>{Users.find(user => user.id === post.userId)?.username}</h4>
+                    </div>
+                    <small>{post.date}</small>
                 </div>
 
-                {/* image */}
+                {/* caption and photo */}
                 <div className="post-mid">
-                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>{post?.desc}</p>
                     <img
-                        src="/assets/post/3.jpeg"
+                        src={`assets/${post.photo}`}
+                        alt="post"
                     />
                 </div>
 
-                {/* like and comments */}
+                {/* likes and comments */}
                 <div className="post-bottom">
                     <div className="post-bottom-gp">
-                        <span>1181 likes | 664 comments</span>
+                        <span>{post.like} likes | {post.comment} comments</span>
                     </div>
                     <div className="post-bottom-gp">
                         <FavoriteBorderOutlinedIcon/>

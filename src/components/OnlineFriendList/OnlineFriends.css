@@ -1,0 +1,19 @@
+.online-friend-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.online-friend-list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.online-friend-list-item > img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}

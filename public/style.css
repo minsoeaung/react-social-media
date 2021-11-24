@@ -7,3 +7,7 @@
 body {
     background-color: #fafafa;
 }
+
+html {
+    overflow-y:scroll;
+}

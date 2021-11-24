@@ -1,9 +1,11 @@
-import Home from "./views/Home/Home";
+import TopBar from "./components/TopBar/TopBar";
+import {Outlet} from "react-router-dom";
 
 function App() {
     return (
         <div>
-            <Home/>
+            <TopBar/>
+            <Outlet/>
         </div>
     );
 }

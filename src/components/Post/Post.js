@@ -8,6 +8,7 @@ const Post = ({post}) => {
     const [likeCount, setLikeCount] = useState(post.like)
     const [isLiked, setIsLiked] = useState(false)
     const [commentInput, setCommentInput] = useState("")
+    const publicFolder = process.env.REACT_APP_PUBLIC_FOLDER
 
     function likeHandler() {
         setIsLiked(!isLiked)

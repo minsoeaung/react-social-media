@@ -5,10 +5,13 @@ const OnlineFriendList = ({users}) => {
         <section className="online-friend-list">
             {users.map(user => (
                 <div key={user.id} className="online-friend-list-item">
-                    <img
-                        src={`assets/${user.profilePicture}`}
-                        alt={`${user.username}`}
-                    />
+                    <div className="online-friend-img-container">
+                        <img
+                            src={`assets/${user.profilePicture}`}
+                            alt={`${user.username}`}
+                        />
+                        <span className="green-dot"/>
+                    </div>
                     <p>{user.username}</p>
                 </div>
             ))}

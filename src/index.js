@@ -13,7 +13,7 @@ ReactDOM.render(
             {/*-------------------------------------------------------*/}
 
             <Routes>
-                <Route path="/" element={<App/>}>
+                <Route exact path="/" element={<App/>}>
                     {/*  Outlet  */}
                     <Route index element={<Home/>}/>
                     <Route path="/profile/:username" element={<Profile/>}/>

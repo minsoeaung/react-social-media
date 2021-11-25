@@ -1,7 +1,7 @@
 import './Profile.css'
 import {useParams} from "react-router-dom";
-import Post from "../../components/Post/Post";
-import {Posts} from "../../dummyData";
+import SideBar from "../../components/SideBar/SideBar";
+import Feed from "../../components/Feed/Feed";
 
 const Profile = () => {
     let params = useParams()
@@ -33,7 +33,8 @@ const Profile = () => {
             </div>
 
             <div className="profile-bottom">
-                <Post post={Posts}/>
+                <Feed/>
+                <SideBar/>
             </div>
         </main>
     )

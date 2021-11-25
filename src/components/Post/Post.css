@@ -51,6 +51,7 @@
 .post-bottom-gp {
     display: flex;
     margin-top: 12px;
+    align-items: center;
 }
 
 .post-bottom-gp > * {

@@ -56,7 +56,7 @@ const Login = () => {
                         <button onClick={handleLogin}>Log in</button>
                     </form>
                     <div className="forget-id">
-                        <a href="#">Forget password?</a>
+                        <button>Forget password?</button>
                     </div>
                     <div className="signup">
                         <p>Don't have an account?<span onClick={handleOpen}>Sign up</span></p>

@@ -80,7 +80,7 @@ form button:active {
     margin: 15px;
 }
 
-.forget-id a {
+.forget-id button {
     text-decoration: none;
     color: #025fd2;
     font-size: 12px;

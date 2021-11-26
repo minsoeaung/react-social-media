@@ -7,6 +7,7 @@ const CreatePost = () => {
                 <div className="create-post-top">
                     <img
                         src="/assets/person/1.jpeg"
+                        alt="user profile"
                     />
                     <input type="text" placeholder="Write a caption..."/>
                 </div>

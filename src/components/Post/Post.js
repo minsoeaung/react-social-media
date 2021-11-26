@@ -1,14 +1,20 @@
 import './Post.css'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {Users} from '../../dummyData'
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import fetchUser from "../../api/fetchUser";
+import {format} from 'timeago.js'
 
 const Post = ({post}) => {
-    const [likeCount, setLikeCount] = useState(post.like)
+    const [user, setUser] = useState({})
+    const [likeCount, setLikeCount] = useState(post.likes.length)
     const [isLiked, setIsLiked] = useState(false)
     const [commentInput, setCommentInput] = useState("")
-    const publicFolder = process.env.REACT_APP_PUBLIC_FOLDER
+    const images = process.env.REACT_APP_SERVER_URI + '/images/'
+
+    useEffect(() => {
+        fetchUser(post.userId).then(user => setUser(user))
+    }, [post.userId])
 
     function likeHandler() {
         setIsLiked(!isLiked)
@@ -23,31 +29,38 @@ const Post = ({post}) => {
         <div className="post">
             <div className="post-container">
 
-                {/* profile image, username and date */}
+
+
+                {/* -----------------------------profile image, username and date----------------------------------- */}
                 <div className="post-top">
                     <div>
                         <img
-                            src={`assets/${Users.find(user => user.id === post.userId)?.profilePicture}`}
-                            alt="post image"
+                            src={`${user.profilePicture ? images + user.profilePicture : images + 'person/noAvatar.png'}`}
+                            alt="post owner"
                         />
-                        <h4>{Users.find(user => user.id === post.userId)?.username}</h4>
+                        <h4>{user.username}</h4>
                     </div>
-                    <small>{post.date}</small>
+                    <small className="muted">{format(post.createdAt)}</small>
                 </div>
 
-                {/* caption and photo */}
+                {/* ------------------------------caption and photo------------------------------------------------- */}
                 <div className="post-mid">
                     <p>{post?.desc}</p>
-                    <img
-                        src={`assets/${post.photo}`}
-                        alt="post"
-                    />
+                    {post.img ?
+                        <img
+                            src={images + post.img}
+                            alt="post"
+                        />
+                        :
+                        null
+                    }
                 </div>
 
-                {/* likes and comments */}
+                {/* ------------------------likes and comments------------------------------------------------------ */}
                 <div className="post-bottom">
                     <div className="post-bottom-gp">
-                        <span>{likeCount} likes | {post.comment} comments</span>
+                        <span>{likeCount} likes</span>
+                        <span>{post.comment} comments</span>
                     </div>
                     <div className="post-bottom-gp">
                         {isLiked ?
@@ -64,6 +77,10 @@ const Post = ({post}) => {
                         <button onClick={commentHandler}>POST</button>
                     </div>
                 </div>
+
+
+
+
             </div>
         </div>
     )

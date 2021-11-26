@@ -1,21 +1,21 @@
 import './Feed.css'
 import CreatePost from "../CreatePost/CreatePost";
+import {useEffect, useState} from "react";
+import fetchPosts from "../../api/fetchPosts";
 import Post from "../Post/Post";
-import {Posts} from '../../dummyData'
 
 const Feed = () => {
+    const [posts, setPosts] = useState([])
 
-    /*
-    * later on, give the posts to render a feed
-    * if it is home, give all user's own posts and his following posts
-    * if it is profile, give all user's own posts only
-    * */
+    useEffect(() => {
+        fetchPosts('61991652de81364c34bf14db').then(posts => setPosts(posts));
+    }, [])
 
     return (
         <div className="feed">
             <div className="feed-container">
                 <CreatePost/>
-                {Posts.map(post => <Post key={post.id} post={post}/>)}
+                {posts.map(post => <Post key={post._id} post={post}/>)}
             </div>
         </div>
     )

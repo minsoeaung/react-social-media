@@ -61,3 +61,7 @@
 .pointer {
     cursor: pointer;
 }
+
+.muted {
+    font-weight: lighter;
+}

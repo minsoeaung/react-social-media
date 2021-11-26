@@ -1,6 +1,6 @@
 .profile-container {
-    max-width: 1280px;
-    margin: 0 auto;
+    max-width: 900px;
+    margin: 0 auto 22px;
 }
 
 /*-------------- top ---------------------------*/
@@ -8,7 +8,6 @@
 .profile-top {
     display: flex;
     justify-content: space-evenly;
-    border-bottom: 1px solid #c4c0c0;
     padding: 28px;
 }
 
@@ -35,7 +34,12 @@
 /*------------------- bottom -----------------------------*/
 
 .profile-bottom {
-    display: flex;
-    max-width: 1280px;
+    width: 90%;
     margin: 0 auto;
+}
+
+/*-----------------------------------------------------*/
+.pointer-underline:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }

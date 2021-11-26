@@ -1,35 +1,40 @@
 import './Profile.css'
-import {useParams} from "react-router-dom";
 import {Divider} from "@mui/material";
 import Feed from "../../components/Feed/Feed";
+import {useEffect, useState} from "react";
+import fetchUser from "../../api/fetchUser";
+import {baseUrl} from "../../shared/baseUrl";
 
 const Profile = () => {
-    let params = useParams()
-    let username = params.username
-    const images = process.env.REACT_APP_SERVER_URI + '/images/'
+    const [user, setUser] = useState({})
+    const username = 'user1'
+
+    useEffect(() => {
+        fetchUser(username, false).then(res => setUser(res))
+    }, [username])
 
     return (
         <main className="profile-container">
             <div className="profile-top">
                 <img
-                    src={images + 'person/1.jpeg'}
-                    alt="user profile"
+                    src={`${baseUrl}images/person/7.jpeg`}
+                    alt={user.username}
                 />
                 <div>
-                    <h3>{username}</h3>
+                    <h3>{user.username}</h3>
                     <div className="user-stats">
                         <span>23 posts</span>
-                        <span className="pointer-underline">23 followers</span>
-                        <span className="pointer-underline">23 followings</span>
+                        <span className="pointer-underline">{user.followers?.length} followers</span>
+                        <span className="pointer-underline">{user.followings?.length} followings</span>
                     </div>
-                    <p>Hello Friends</p>
+                    <p>{user.desc}</p>
                 </div>
                 <div>
                     <h4>User Information</h4>
                     <div className="user-info">
-                        <span>City : Yangon</span>
-                        <span>From : Yangon</span>
-                        <span>Relationship : Single</span>
+                        <span>City : {user.city}</span>
+                        <span>From : {user.from}</span>
+                        <span>Relationship : {user.relationship}</span>
                     </div>
                 </div>
             </div>
@@ -40,8 +45,7 @@ const Profile = () => {
 
             <div className="profile-bottom">
                 <div className="own-post-container">
-                    <Feed username='user1' isProfile={false}/>
-
+                    <Feed username={username} isProfile={true}/>
                 </div>
             </div>
 

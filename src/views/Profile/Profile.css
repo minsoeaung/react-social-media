@@ -1,6 +1,8 @@
 .profile-container {
     max-width: 900px;
     margin: 0 auto 22px;
+    font-family: 'Roboto', sans-serif;
+    background-color: #fafafa;
 }
 
 /*-------------- top ---------------------------*/

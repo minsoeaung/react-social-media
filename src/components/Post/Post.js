@@ -6,16 +6,16 @@ import fetchUser from "../../api/fetchUser";
 import {format} from 'timeago.js'
 import {Link} from "react-router-dom";
 import {Avatar, Stack} from "@mui/material";
+import {baseUrl} from "../../shared/baseUrl";
 
 const Post = ({post}) => {
     const [user, setUser] = useState({})
     const [likeCount, setLikeCount] = useState(post.likes.length)
     const [isLiked, setIsLiked] = useState(false)
     const [commentInput, setCommentInput] = useState("")
-    const images = process.env.REACT_APP_SERVER_URI + '/images/'
 
     useEffect(() => {
-        fetchUser(post.userId).then(user => setUser(user))
+        fetchUser(post.userId, true).then(user => setUser(user))
     }, [post.userId])
 
     function likeHandler() {
@@ -38,7 +38,7 @@ const Post = ({post}) => {
                         <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar
                                 alt={user.username}
-                                src={`${user.profilePicture ? images + user.profilePicture : images + 'person/noAvatar.png'}`}
+                                src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
                             />
                             <h4>{user.username}</h4>
                         </Stack>
@@ -51,7 +51,7 @@ const Post = ({post}) => {
                     <p>{post?.desc}</p>
                     {post.img ?
                         <img
-                            src={images + post.img}
+                            src={baseUrl + "images/" + post.img}
                             alt="post"
                         />
                         :

@@ -11,6 +11,8 @@
     align-items: center;
     justify-content: space-around;
     z-index: 999;
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
 }
 
 /* --------------------------------------- left, logo or name of app ---------------------------------------------*/

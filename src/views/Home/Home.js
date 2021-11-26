@@ -1,11 +1,11 @@
 import Feed from "../../components/Feed/Feed";
-import './Home.css'
 import SideBar from "../../components/SideBar/SideBar";
+import './Home.css'
 
 const Home = () => {
     return (
         <main className="home-container">
-            <Feed/>
+            <Feed username='user1' isProfile={false}/>
             <SideBar/>
         </main>
     )

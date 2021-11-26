@@ -4,6 +4,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useEffect, useState} from "react";
 import fetchUser from "../../api/fetchUser";
 import {format} from 'timeago.js'
+import {Link} from "react-router-dom";
+import {Avatar, Stack} from "@mui/material";
 
 const Post = ({post}) => {
     const [user, setUser] = useState({})
@@ -30,16 +32,17 @@ const Post = ({post}) => {
             <div className="post-container">
 
 
-
                 {/* -----------------------------profile image, username and date----------------------------------- */}
                 <div className="post-top">
-                    <div>
-                        <img
-                            src={`${user.profilePicture ? images + user.profilePicture : images + 'person/noAvatar.png'}`}
-                            alt="post owner"
-                        />
-                        <h4>{user.username}</h4>
-                    </div>
+                    <Link to={`profile/${user.username}`} className="link">
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                            <Avatar
+                                alt={user.username}
+                                src={`${user.profilePicture ? images + user.profilePicture : images + 'person/noAvatar.png'}`}
+                            />
+                            <h4>{user.username}</h4>
+                        </Stack>
+                    </Link>
                     <small className="muted">{format(post.createdAt)}</small>
                 </div>
 
@@ -77,8 +80,6 @@ const Post = ({post}) => {
                         <button onClick={commentHandler}>POST</button>
                     </div>
                 </div>
-
-
 
 
             </div>

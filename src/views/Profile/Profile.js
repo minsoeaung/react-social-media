@@ -1,8 +1,7 @@
 import './Profile.css'
 import {useParams} from "react-router-dom";
-import {Posts} from "../../dummyData";
-import Post from "../../components/Post/Post";
 import {Divider} from "@mui/material";
+import Feed from "../../components/Feed/Feed";
 
 const Profile = () => {
     let params = useParams()
@@ -34,14 +33,18 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
+
+
             <Divider/>
+
+
             <div className="profile-bottom">
                 <div className="own-post-container">
-                    {Posts.map(post => (
-                        <Post key={post.id} post={post}/>
-                    ))}
+                    <Feed username='user1' isProfile={false}/>
+
                 </div>
             </div>
+
         </main>
     )
 }

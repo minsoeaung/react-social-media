@@ -14,21 +14,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
 }
 
-.post-top > div {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+.post-top > Link {
+    text-decoration: none;
 }
 
-.post-top > div > img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+/*----------------------------------------*/
 
 .post-mid {
     margin-top: 12px;
@@ -64,4 +56,9 @@
 
 .muted {
     font-weight: lighter;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
 }

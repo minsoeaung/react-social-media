@@ -4,10 +4,11 @@ import Feed from "../../components/Feed/Feed";
 import {useEffect, useState} from "react";
 import fetchUser from "../../api/fetchUser";
 import {baseUrl} from "../../shared/baseUrl";
+import {useParams} from "react-router-dom";
 
 const Profile = () => {
     const [user, setUser] = useState({})
-    const username = 'user1'
+    const username = useParams().username
 
     useEffect(() => {
         fetchUser(username, false).then(res => setUser(res))
@@ -17,9 +18,10 @@ const Profile = () => {
         <main className="profile-container">
             <div className="profile-top">
                 <img
-                    src={`${baseUrl}images/person/7.jpeg`}
+                    src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
                     alt={user.username}
                 />
+                {/*--------------------------------------------*/}
                 <div>
                     <h3>{user.username}</h3>
                     <div className="user-stats">
@@ -29,12 +31,13 @@ const Profile = () => {
                     </div>
                     <p>{user.desc}</p>
                 </div>
+                {/*---------------------------------------------*/}
                 <div>
                     <h4>User Information</h4>
                     <div className="user-info">
                         <span>City : {user.city}</span>
                         <span>From : {user.from}</span>
-                        <span>Relationship : {user.relationship}</span>
+                        <span>Relationship : {user.relationship === 1 ? 'Single' : user.relationship === 2 ? 'Married' : '-'}</span>
                     </div>
                 </div>
             </div>

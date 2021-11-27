@@ -25,7 +25,7 @@ const TopBar = () => {
             {/*----------------------------------------------------*/}
             <div className="topbar-right">
                 <div className="navigation-icon">
-                    <Link to="/">
+                    <Link to="/" className="nav-link">
                         {pathName === '/' ?
                             <HomeIcon/>
                             :
@@ -46,7 +46,9 @@ const TopBar = () => {
                     <span className="icon-badge">1</span>
                 </div>
                 <div className="navigation-icon">
-                    <Link to="/profile/minsoeaung">
+
+                    {/* user1 will be dynamic later */}
+                    <Link to="/profile/user1">
                         <img
                             className="profile-image"
                             src="/assets/person/1.jpeg"

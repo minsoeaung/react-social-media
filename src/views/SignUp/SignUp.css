@@ -1,4 +1,4 @@
-.login {
+.signup {
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,12 +8,12 @@
     background-color: #fafafa;
 }
 
-.login-container {
+.signup-container {
     text-align: center;
     border: 1px solid #c4c0c0;
 }
 
-.login-body {
+.signup-body {
     width: 350px;
     background: #fff;
     border-radius: 5px;
@@ -76,21 +76,7 @@ form button:active {
     transform: scale(0.995);
 }
 
-.forget-id {
-    margin: 15px;
-}
-
-.forget-id button {
-    text-decoration: none;
-    color: #025fd2;
-    font-size: 12px;
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    background-color: inherit;
-}
-
-.login-footer {
+.signup-footer {
     position: relative;
     width: 90%;
     left: 50%;
@@ -98,7 +84,7 @@ form button:active {
     margin-top: 30px;
 }
 
-.signup-link  {
+.login-link {
     margin-left: 5px;
     color: #008aff;
     font-weight: bold;

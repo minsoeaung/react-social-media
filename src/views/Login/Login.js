@@ -1,27 +1,40 @@
 import './Login.css'
-import {useContext, useRef} from "react";
+import {useContext, useRef, useState} from "react";
 import loginUser from "../../api/loginUser";
 import {AuthContext} from "../../context/AuthContext";
-import {CircularProgress} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Alert, CircularProgress, Snackbar} from "@mui/material";
+import {Link, useNavigate} from "react-router-dom";
 
 const Login = () => {
     const email = useRef()
     const password = useRef()
-    const {user, isFetching, error, dispatch} = useContext(AuthContext)
+    const navigate = useNavigate()
+    const {isFetching, error, dispatch} = useContext(AuthContext)
+    const [err, setErr] = useState(false)
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
         e.preventDefault()
-        loginUser({
+        await loginUser({
             email: email.current.value,
             password: password.current.value
         }, dispatch)
+        if (error) {
+            setErr(true)
+        } else {
+            navigate('/')
+        }
     }
 
     return (
         <div className="login">
             <div className="login-container">
                 <div className="login-body">
+                    <Snackbar open={err} autoHideDuration={6000} onClose={() => setErr(false)}
+                              anchorOrigin={{vertical: "top", horizontal: "center"}}>
+                        <Alert onClose={() => setErr(false)} severity="warning">
+                            Incorrect Username or Email!
+                        </Alert>
+                    </Snackbar>
                     <div className="title">React Social</div>
                     <form onSubmit={handleLogin}>
                         <input type="email" placeholder="Email" ref={email} required/>

@@ -6,23 +6,24 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
 import {Link, useLocation} from "react-router-dom";
+import {AuthContext} from "../../context/AuthContext";
+import {useContext} from "react";
+import {baseUrl} from "../../shared/baseUrl";
 
 const TopBar = () => {
+    const {user} = useContext(AuthContext)
     let location = useLocation();
     let pathName = location.pathname
 
     return (
         <div className="topbar-container">
-            {/*----------------------------------------------------*/}
             <div className="topbar-left">
                 <Link to="/">React Social</Link>
             </div>
-            {/*----------------------------------------------------*/}
             <div className="topbar-mid">
                 <SearchIcon className="search-icon"/>
                 <input type="text" placeholder="Search"/>
             </div>
-            {/*----------------------------------------------------*/}
             <div className="topbar-right">
                 <div className="navigation-icon">
                     <Link to="/" className="nav-link">
@@ -46,13 +47,11 @@ const TopBar = () => {
                     <span className="icon-badge">1</span>
                 </div>
                 <div className="navigation-icon">
-
-                    {/* user1 will be dynamic later */}
-                    <Link to="/profile/user1">
+                    <Link to={`/profile/${user.username}`}>
                         <img
                             className="profile-image"
-                            src="/assets/person/1.jpeg"
-                            alt="dfjsfa"
+                            src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
+                            alt={user.username}
                         />
                     </Link>
                 </div>

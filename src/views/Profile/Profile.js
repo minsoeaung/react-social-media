@@ -11,7 +11,8 @@ const Profile = () => {
     const username = useParams().username
 
     useEffect(() => {
-        fetchUser(username, false).then(res => setUser(res))
+        fetchUser(username, false)
+            .then(res => setUser(res))
     }, [username])
 
     return (
@@ -21,7 +22,6 @@ const Profile = () => {
                     src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
                     alt={user.username}
                 />
-                {/*--------------------------------------------*/}
                 <div>
                     <h3>{user.username}</h3>
                     <div className="user-stats">
@@ -31,7 +31,6 @@ const Profile = () => {
                     </div>
                     <p>{user.desc}</p>
                 </div>
-                {/*---------------------------------------------*/}
                 <div>
                     <h4>User Information</h4>
                     <div className="user-info">
@@ -41,17 +40,12 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-
-
             <Divider/>
-
-
             <div className="profile-bottom">
                 <div className="own-post-container">
                     <Feed username={username} isProfile={true}/>
                 </div>
             </div>
-
         </main>
     )
 }

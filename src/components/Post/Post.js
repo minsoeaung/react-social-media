@@ -1,15 +1,18 @@
 import './Post.css'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import fetchUser from "../../api/fetchUser";
 import {format} from 'timeago.js'
 import {Link} from "react-router-dom";
 import {Avatar, Stack} from "@mui/material";
 import {baseUrl} from "../../shared/baseUrl";
+import {AuthContext} from "../../context/AuthContext";
+import likeAPost from "../../api/likeAPost";
 
 const Post = ({post}) => {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({}) // post owner
+    const {user: currUser} = useContext(AuthContext) // post liker ( current user )
     const [likeCount, setLikeCount] = useState(post.likes.length)
     const [isLiked, setIsLiked] = useState(false)
     const [commentInput, setCommentInput] = useState("")
@@ -18,7 +21,12 @@ const Post = ({post}) => {
         fetchUser(post.userId, true).then(user => setUser(user))
     }, [post.userId])
 
-    function likeHandler() {
+    useEffect(() => {
+        setIsLiked(post.likes.includes(currUser._id))
+    }, [currUser._id, post.likes])
+
+    async function likeHandler() {
+        await likeAPost(post._id, currUser._id)
         setIsLiked(!isLiked)
         setLikeCount(isLiked ? likeCount - 1 : likeCount + 1)
     }
@@ -30,8 +38,6 @@ const Post = ({post}) => {
     return (
         <div className="post">
             <div className="post-container">
-
-
                 {/* -----------------------------profile image, username and date----------------------------------- */}
                 <div className="post-top">
                     <Link to={`profile/${user.username}`} className="link">
@@ -45,7 +51,6 @@ const Post = ({post}) => {
                     </Link>
                     <small className="muted">{format(post.createdAt)}</small>
                 </div>
-
                 {/* ------------------------------caption and photo------------------------------------------------- */}
                 <div className="post-mid">
                     <p>{post?.desc}</p>
@@ -58,7 +63,6 @@ const Post = ({post}) => {
                         null
                     }
                 </div>
-
                 {/* ------------------------likes and comments------------------------------------------------------ */}
                 <div className="post-bottom">
                     <div className="post-bottom-gp">
@@ -80,8 +84,6 @@ const Post = ({post}) => {
                         <button onClick={commentHandler}>POST</button>
                     </div>
                 </div>
-
-
             </div>
         </div>
     )

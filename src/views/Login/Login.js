@@ -26,7 +26,7 @@ const Login = () => {
                     <form onSubmit={handleLogin}>
                         <input type="email" placeholder="Email" ref={email} required/>
                         <input type="password" placeholder="Password" ref={password} min={6} required/>
-                        <button disabled={isFetching}>
+                        <button disabled={isFetching} type='submit'>
                             {isFetching ? <CircularProgress size={12} color="info" thickness={10}/> : "Log in"}
                         </button>
                     </form>

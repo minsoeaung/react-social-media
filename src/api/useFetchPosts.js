@@ -16,7 +16,7 @@ const useFetchPosts = (username, isProfile) => {
             : `${baseUrl}posts/timeline/${username}`
         axios.get(url)
             .then(res => {
-                setPosts(res.data)
+                setPosts(res.data.sort((post1, post2) => new Date(post2.createdAt) - new Date(post1.createdAt)))
                 setLoading(false)
             }).catch(e => {
             if (axios.isCancel(e)) return

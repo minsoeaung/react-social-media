@@ -9,6 +9,7 @@ import {Link, useLocation} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 import {useContext} from "react";
 import {baseUrl} from "../../shared/baseUrl";
+import {Avatar, Badge, IconButton, Stack} from "@mui/material";
 
 const TopBar = () => {
     const {user} = useContext(AuthContext)
@@ -22,40 +23,39 @@ const TopBar = () => {
             </div>
             <div className="topbar-mid">
                 <SearchIcon className="search-icon"/>
-                <input type="text" placeholder="Search"/>
+                <input type="text" placeholder="Search..."/>
             </div>
-            <div className="topbar-right">
-                <div className="navigation-icon">
-                    <Link to="/" className="nav-link">
-                        {pathName === '/' ?
-                            <HomeIcon/>
-                            :
-                            <HomeOutlinedIcon/>
+            <Stack direction="row" spacing={1}>
+                <Link to='/'>
+                    <IconButton aria-label="New Feed" color="default">
+                        {pathName === '/'
+                            ? <HomeIcon color='primary'/>
+                            : <HomeOutlinedIcon/>
                         }
-                    </Link>
-                </div>
-                <div className="navigation-icon">
-                    <CommentOutlinedIcon/>
-                    <span className="icon-badge">1</span>
-                </div>
-                <div className="navigation-icon">
-                    <PersonOutlineIcon/>
-                    <span className="icon-badge">4</span>
-                </div>
-                <div className="navigation-icon">
-                    <NotificationsNoneIcon/>
-                    <span className="icon-badge">1</span>
-                </div>
-                <div className="navigation-icon">
-                    <Link to={`/profile/${user.username}`}>
-                        <img
-                            className="profile-image"
-                            src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
-                            alt={user.username}
-                        />
-                    </Link>
-                </div>
-            </div>
+                    </IconButton>
+                </Link>
+                <IconButton aria-label="Message" color="default">
+                    <Badge badgeContent={4} color="error">
+                        <CommentOutlinedIcon/>
+                    </Badge>
+                </IconButton>
+                <IconButton aria-label="Followings" color="default">
+                    <Badge badgeContent={2} color="error">
+                        <PersonOutlineIcon/>
+                    </Badge>
+                </IconButton>
+                <IconButton aria-label="Notification" color="default">
+                    <Badge badgeContent={2} color="error">
+                        <NotificationsNoneIcon/>
+                    </Badge>
+                </IconButton>
+                <Link to={`/profile/${user.username}`}>
+                    <Avatar
+                        src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
+                        alt={user.username}
+                    />
+                </Link>
+            </Stack>
         </div>
     );
 }

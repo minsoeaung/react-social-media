@@ -16,13 +16,6 @@
     gap: 20px;
 }
 
-.create-post-top > img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
 .create-post-top > input {
     width: 90%;
     background-color: #fafafa;
@@ -36,4 +29,21 @@
 .create-post-top > input:focus {
     outline: none !important;
     border: 1px solid #c4c0c0;
+}
+
+.create-post-mid, .create-post-bottom {
+    margin-top: 14px;
+}
+
+.post-button {
+    border: none;
+    background: darkslategrey;
+    padding: 3px 22px;
+    color: #fff;
+    border-radius: 3px;
+    font-weight: bold;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    outline: none;
+    cursor: pointer;
 }

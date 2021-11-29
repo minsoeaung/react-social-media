@@ -1,50 +1,108 @@
 import './Profile.css'
-import {Divider} from "@mui/material";
+import {Divider, Stack} from "@mui/material";
 import Feed from "../../components/Feed/Feed";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import fetchUser from "../../api/fetchUser";
 import {baseUrl} from "../../shared/baseUrl";
 import {useParams} from "react-router-dom";
 import UserFollowListModal from "../../components/UserFollowListModal/UserFollowListModal";
+import {AuthContext} from "../../context/AuthContext";
+import LoadingButton from '@mui/lab/LoadingButton';
+import AddIcon from '@mui/icons-material/Add';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import unfollow from "../../api/unfollow";
+import follow from "../../api/follow";
 
 const Profile = () => {
-    const username = useParams().username
-    const [user, setUser] = useState({}) // the current user of this profile
+    const username = useParams().username // the username of this profile
+    const [user, setUser] = useState({}) // the user of this profile
+    const {user: currentUser} = useContext(AuthContext) // the logged-in user as currentUser
     const [open, setOpen] = useState(false) // modal open or not
     const [isFollowers, setIsFollowers] = useState(null) // decide what modal must display
+    const [isLoading, setIsLoading] = useState(false) // performing follow or unfollow
+    const [isFollowed, setIsFollowed] = useState(null) // is current logged-in user follow this user?
+    const [followerCount, setFollowerCount] = useState(0)
+    const [followingCount, setFollowingCount] = useState(0)
 
     /*
-    *   Get information about current user
+    *   component did mount
     * */
     useEffect(() => {
-        fetchUser(username, false)
-            .then(res => setUser(res))
-    }, [username])
-
+        (async () => {
+            setIsLoading(true)
+            await fetchUser(username, false).then(res => setUser(res))
+            setIsFollowed(currentUser.followings.includes(user._id))
+            setFollowerCount(user.followers?.length)
+            setFollowingCount(user.followings?.length)
+            setIsLoading(false)
+        })()
+    }, [currentUser.followings, user._id, user.followers?.length, user.followings?.length, username])
 
     /*
-    *   Function for modal
+    *   for modal
     * */
     const handleClick = (isFollowers) => {
-        if (isFollowers) setIsFollowers(true)
-        else setIsFollowers(false)
+        if (isFollowers) {
+            setIsFollowers(true)
+        } else {
+            setIsFollowers(false)
+        }
         setOpen(true)
+    }
+
+    /*
+    *   follow, unfollow button
+    * */
+    const handleLoadingButtonClick = async () => {
+        setIsLoading(true)
+        if (isFollowed) {
+            await unfollow(user._id, currentUser._id)
+            setIsFollowed(false)
+        } else {
+            await follow(user._id, currentUser._id)
+            setIsFollowed(true)
+        }
+        setIsLoading(false)
     }
 
     return (
         <main className="profile-container">
             <div className="profile-top">
                 <img
-                    src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
+                    src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : '/assets/person/noAvatar.png'}
                     alt={user.username}
                 />
                 <div>
-                    <h3>{user.username}</h3>
+                    <Stack
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <h3>{user.username}</h3>
+                        {currentUser.username !== username &&
+                        <LoadingButton
+                            onClick={handleLoadingButtonClick}
+                            endIcon={isFollowed ? <TaskAltIcon/> : <AddIcon/>}
+                            loading={isLoading}
+                            loadingPosition="end"
+                            variant={isFollowed ? 'outlined' : 'contained'}
+                            size='small'
+                            color='inherit'
+                            style={{
+                                backgroundColor: isFollowed ? "inherit" : "darkslategrey",
+                                color: isFollowed ? "black" : "#fff"
+                            }}
+                        >
+                            {isFollowed ? "Following" : "Follow"}
+                        </LoadingButton>
+                        }
+                    </Stack>
                     <div className="user-stats">
                         <span className="pointer-underline"
-                              onClick={() => handleClick(true)}>{user.followers?.length} followers</span>
+                              onClick={() => handleClick(true)}>{followerCount} followers</span>
                         <span className="pointer-underline"
-                              onClick={() => handleClick(false)}>{user.followings?.length} followings</span>
+                              onClick={() => handleClick(false)}>{followingCount} followings</span>
                     </div>
                     <p>{user.desc}</p>
                 </div>

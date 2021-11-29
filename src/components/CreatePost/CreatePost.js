@@ -45,10 +45,10 @@ const CreatePost = () => {
         <div className="create-post">
             <div className="create-post-container">
                 <div className="create-post-top">
-                    <Avatar
-                        alt={user.username}
-                        src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
-                    />
+                    {user.profilePicture
+                        ? <Avatar src={`${baseUrl}images/${user.profilePicture}`} alt={user.username}/>
+                        : <Avatar src='/assets/person/noAvatar.png' alt={user.username}/>
+                    }
                     <input
                         type="text"
                         placeholder="Write a caption..."

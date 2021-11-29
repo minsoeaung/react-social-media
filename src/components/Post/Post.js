@@ -42,10 +42,10 @@ const Post = ({post}) => {
                 <div className="post-top">
                     <Link to={`profile/${user.username}`} className="link">
                         <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar
-                                alt={user.username}
-                                src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
-                            />
+                            {user.profilePicture
+                                ? <Avatar src={`${baseUrl}images/${user.profilePicture}`} alt={user.username}/>
+                                : <Avatar src='/assets/person/noAvatar.png' alt={user.username}/>
+                            }
                             <h4>{user.username}</h4>
                         </Stack>
                     </Link>

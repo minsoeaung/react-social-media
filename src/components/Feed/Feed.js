@@ -1,11 +1,11 @@
 import './Feed.css'
 import CreatePost from "../CreatePost/CreatePost";
 import useFetchPosts from "../../api/useFetchPosts";
-import FeedLoading from "../FeedLoading/FeedLoading";
+import FeedLoading from "../Loadings/FeedLoading";
 import Post from "../Post/Post";
 
 const Feed = ({username, isProfile}) => {
-    const {isLoading, error, posts} = useFetchPosts(username, isProfile)
+    const {isLoading, posts} = useFetchPosts(username, isProfile)
 
     return (
         <div className="feed">

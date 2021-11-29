@@ -5,15 +5,31 @@ import {useEffect, useState} from "react";
 import fetchUser from "../../api/fetchUser";
 import {baseUrl} from "../../shared/baseUrl";
 import {useParams} from "react-router-dom";
+import UserFollowListModal from "../../components/UserFollowListModal/UserFollowListModal";
 
 const Profile = () => {
-    const [user, setUser] = useState({})
     const username = useParams().username
+    const [user, setUser] = useState({}) // the current user of this profile
+    const [open, setOpen] = useState(false) // modal open or not
+    const [isFollowers, setIsFollowers] = useState(null) // decide what modal must display
 
+    /*
+    *   Get information about current user
+    * */
     useEffect(() => {
         fetchUser(username, false)
             .then(res => setUser(res))
     }, [username])
+
+
+    /*
+    *   Function for modal
+    * */
+    const handleClick = (isFollowers) => {
+        if (isFollowers) setIsFollowers(true)
+        else setIsFollowers(false)
+        setOpen(true)
+    }
 
     return (
         <main className="profile-container">
@@ -25,9 +41,10 @@ const Profile = () => {
                 <div>
                     <h3>{user.username}</h3>
                     <div className="user-stats">
-                        <span>23 posts</span>
-                        <span className="pointer-underline">{user.followers?.length} followers</span>
-                        <span className="pointer-underline">{user.followings?.length} followings</span>
+                        <span className="pointer-underline"
+                              onClick={() => handleClick(true)}>{user.followers?.length} followers</span>
+                        <span className="pointer-underline"
+                              onClick={() => handleClick(false)}>{user.followings?.length} followings</span>
                     </div>
                     <p>{user.desc}</p>
                 </div>
@@ -46,6 +63,13 @@ const Profile = () => {
                     <Feed username={username} isProfile={true}/>
                 </div>
             </div>
+
+            <UserFollowListModal
+                open={open}
+                setOpen={setOpen}
+                isFollowers={isFollowers}
+            />
+
         </main>
     )
 }

@@ -50,10 +50,10 @@ const TopBar = () => {
                     </Badge>
                 </IconButton>
                 <Link to={`/profile/${user.username}`}>
-                    <Avatar
-                        src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : `${baseUrl}images/person/noAvatar.png`}
-                        alt={user.username}
-                    />
+                    {user.profilePicture
+                        ? <Avatar src={`${baseUrl}images/${user.profilePicture}`} alt={user.username}/>
+                        : <Avatar src='/assets/person/noAvatar.png' alt={user.username}/>
+                    }
                 </Link>
             </Stack>
         </div>

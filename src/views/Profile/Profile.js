@@ -65,6 +65,7 @@ const Profile = () => {
             </div>
 
             <UserFollowListModal
+                user={user}
                 open={open}
                 setOpen={setOpen}
                 isFollowers={isFollowers}

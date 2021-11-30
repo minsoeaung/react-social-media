@@ -1,10 +1,19 @@
 import './CreatePost.css'
 import {AuthContext} from "../../context/AuthContext";
 import {useContext, useState} from "react";
-import {Avatar} from "@mui/material";
+import {Avatar, IconButton} from "@mui/material";
 import {baseUrl} from "../../shared/baseUrl";
 import uploadPost from "../../api/uploadPost";
 import uploadImage from "../../api/uploadImage";
+import DeleteIcon from '@mui/icons-material/Delete';
+import {styled} from '@mui/material/styles';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import SendIcon from '@mui/icons-material/Send';
+
+const Input = styled('input')({
+    display: 'none',
+});
+
 
 const CreatePost = () => {
     const {user} = useContext(AuthContext)
@@ -55,15 +64,30 @@ const CreatePost = () => {
                         value={desc}
                         onChange={e => setDesc(e.target.value)}
                     />
-                </div>
-                <div className="create-post-mid">
-                    <label htmlFor='file'>
-                        <input type='file' id='file' accept='.png, .jpeg, .jpg'
-                               onChange={e => setImage(e.target.files[0])}/>
+                    <label htmlFor="icon-button-file">
+                        <Input
+                            accept="image/*" id="icon-button-file" type="file"
+                            onChange={e => setImage(e.target.files[0])}
+                        />
+                        <IconButton color="inherit" aria-label="upload picture" component="span">
+                            <PhotoCamera/>
+                        </IconButton>
                     </label>
                 </div>
+                {image &&
+                <div className="share-image-container">
+                    <img
+                        className="share-image"
+                        src={URL.createObjectURL(image)}
+                        alt="share"
+                    />
+                    <IconButton aria-label="delete" size="large" onClick={() => setImage(null)}>
+                        <DeleteIcon fontSize="inherit"/>
+                    </IconButton>
+                </div>
+                }
                 <div className="create-post-bottom">
-                    <button className="post-button" onClick={handlePost}>POST</button>
+                    <button className="post-button" onClick={handlePost}>POST<SendIcon fontSize='inherit'/></button>
                 </div>
             </div>
         </div>

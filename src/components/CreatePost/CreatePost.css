@@ -17,7 +17,7 @@
 }
 
 .create-post-top > input {
-    width: 90%;
+    width: 80%;
     background-color: #fafafa;
     padding: 3px 10px;
     height: 30px;
@@ -31,14 +31,11 @@
     border: 1px solid #c4c0c0;
 }
 
-.create-post-mid, .create-post-bottom {
-    margin-top: 14px;
-}
-
 .post-button {
+    margin-top: 22px;
     border: none;
     background: darkslategrey;
-    padding: 3px 22px;
+    padding: 3px 16px;
     color: #fff;
     border-radius: 3px;
     font-weight: bold;
@@ -46,4 +43,18 @@
     letter-spacing: 1px;
     outline: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.share-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 22px;
+}
+
+.share-image {
+    width: 100%;
 }

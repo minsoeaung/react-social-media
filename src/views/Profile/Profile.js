@@ -20,7 +20,7 @@ const Profile = () => {
     const [open, setOpen] = useState(false) // modal open or not
     const [isFollowers, setIsFollowers] = useState(null) // decide what modal must display
     const [isLoading, setIsLoading] = useState(false) // performing follow or unfollow
-    const [isFollowed, setIsFollowed] = useState(null) // is current logged-in user follow this user?
+    const [isFollowed, setIsFollowed] = useState(currentUser.followings.includes(user?._id)) // is current logged-in user follow this user?
     const [followerCount, setFollowerCount] = useState(null)
     const [followingCount, setFollowingCount] = useState(null)
 

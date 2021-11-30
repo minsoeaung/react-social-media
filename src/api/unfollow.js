@@ -6,9 +6,9 @@ import {baseUrl} from "../shared/baseUrl";
 *   currentUserId => the current user ( logged-in user )
 * */
 const unfollow = async (userId, currentUserId) => {
-    console.log("unfollowed")
     try {
         await axios.put(`${baseUrl}users/${userId}/unfollow`, {userId: currentUserId})
+        // console.log("unfollowed")
     } catch (e) {
         console.log(e)
     }

@@ -21,22 +21,24 @@ const Profile = () => {
     const [isFollowers, setIsFollowers] = useState(null) // decide what modal must display
     const [isLoading, setIsLoading] = useState(false) // performing follow or unfollow
     const [isFollowed, setIsFollowed] = useState(null) // is current logged-in user follow this user?
-    const [followerCount, setFollowerCount] = useState(0)
-    const [followingCount, setFollowingCount] = useState(0)
+    const [followerCount, setFollowerCount] = useState(null)
+    const [followingCount, setFollowingCount] = useState(null)
 
     /*
     *   component did mount
     * */
     useEffect(() => {
-        (async () => {
-            setIsLoading(true)
-            await fetchUser(username, false).then(res => setUser(res))
-            setIsFollowed(currentUser.followings.includes(user._id))
-            setFollowerCount(user.followers?.length)
-            setFollowingCount(user.followings?.length)
-            setIsLoading(false)
-        })()
-    }, [currentUser.followings, user._id, user.followers?.length, user.followings?.length, username])
+        fetchUser(username, false).then(res => setUser(res))
+        setFollowerCount(user.followers?.length)
+        setFollowingCount(user.followings?.length)
+    }, [username, user.followings, user.followers])
+
+    /*
+    *   is current user following this user?
+    * */
+    useEffect(() => {
+        setIsFollowed(currentUser.followings.includes(user?._id))
+    }, [currentUser, user._id])
 
     /*
     *   for modal
@@ -57,11 +59,10 @@ const Profile = () => {
         setIsLoading(true)
         if (isFollowed) {
             await unfollow(user._id, currentUser._id)
-            setIsFollowed(false)
         } else {
             await follow(user._id, currentUser._id)
-            setIsFollowed(true)
         }
+        setIsFollowed(!isFollowed)
         setIsLoading(false)
     }
 
@@ -70,7 +71,7 @@ const Profile = () => {
             <div className="profile-top">
                 <img
                     src={user.profilePicture ? `${baseUrl}images/${user.profilePicture}` : '/assets/person/noAvatar.png'}
-                    alt={user.username}
+                    alt={username}
                 />
                 <div>
                     <Stack
@@ -79,7 +80,7 @@ const Profile = () => {
                         alignItems="center"
                         spacing={2}
                     >
-                        <h3>{user.username}</h3>
+                        <h3>{username}</h3>
                         {currentUser.username !== username &&
                         <LoadingButton
                             onClick={handleLoadingButtonClick}
@@ -99,12 +100,14 @@ const Profile = () => {
                         }
                     </Stack>
                     <div className="user-stats">
-                        <span className="pointer-underline"
-                              onClick={() => handleClick(true)}>{followerCount} followers</span>
-                        <span className="pointer-underline"
-                              onClick={() => handleClick(false)}>{followingCount} followings</span>
+                        <span className="pointer-underline" onClick={() => handleClick(true)}>
+                            {followerCount} followers
+                        </span>
+                        <span className="pointer-underline" onClick={() => handleClick(false)}>
+                            {followingCount} followings
+                        </span>
                     </div>
-                    <p>{user.desc}</p>
+                    <p>{user?.desc}</p>
                 </div>
                 <div>
                     <h4>User Information</h4>
@@ -118,17 +121,17 @@ const Profile = () => {
             <Divider/>
             <div className="profile-bottom">
                 <div className="own-post-container">
-                    <Feed username={username} isProfile={true}/>
+                    {user && <Feed username={username} isProfile={true}/>}
                 </div>
             </div>
 
-            <UserFollowListModal
+            {/* only render when user is ready */}
+            {user.username !== undefined ? <UserFollowListModal
                 user={user}
                 open={open}
                 setOpen={setOpen}
                 isFollowers={isFollowers}
-            />
-
+            /> : null}
         </main>
     )
 }

@@ -6,9 +6,9 @@ import {baseUrl} from "../shared/baseUrl";
 *   currentUserId => the current user ( logged-in user )
 * */
 const follow = async (userId, currentUserId) => {
-    console.log("followed")
     try {
         await axios.put(`${baseUrl}users/${userId}/follow`, {userId: currentUserId})
+        // console.log("followed")
     } catch (e) {
         console.log(e)
     }

@@ -27,15 +27,13 @@ const UserFollowListModal = ({user, open, setOpen, isFollowers}) => {
 
         async function getList(userId) {
             if (isFollowers) {
-                const list = await getFollowers(userId)
-                setList(list)
+                return await getFollowers(userId)
             } else {
-                const list = await getFollowings(userId)
-                setList(list)
+                return await getFollowings(userId)
             }
         }
 
-        getList(user._id)
+        getList(user._id).then((list) => setList(list))
         setIsLoading(false)
     }, [isFollowers, open, user._id])
 

@@ -1,0 +1,25 @@
+.chatbox {
+    flex: 1.5;
+}
+
+.chatbox-container {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    height: calc(100vh - 50px);
+}
+
+.chatbox-top {
+    height: 100%;
+    overflow-y: scroll;
+    padding-bottom: 20px;
+    padding-right: 20px;
+}
+
+.chatbox-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 20px;
+}

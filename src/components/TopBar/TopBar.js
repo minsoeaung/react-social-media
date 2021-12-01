@@ -4,7 +4,8 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import CommentOutlinedIcon from '@mui/icons-material/CommentOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import ChatBubbleOutlinedIcon from '@mui/icons-material/ChatBubbleOutlined';
 import {Link, useLocation} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 import {useContext} from "react";
@@ -34,11 +35,16 @@ const TopBar = () => {
                         }
                     </IconButton>
                 </Link>
-                <IconButton aria-label="Message" color="default">
-                    <Badge badgeContent={4} color="error">
-                        <CommentOutlinedIcon/>
-                    </Badge>
-                </IconButton>
+                <Link to='/chat'>
+                    <IconButton aria-label="Message" color="default">
+                        <Badge badgeContent={4} color="error">
+                            {pathName === '/chat'
+                                ? <ChatBubbleOutlinedIcon color='primary'/>
+                                : <ChatBubbleOutlineOutlinedIcon/>
+                            }
+                        </Badge>
+                    </IconButton>
+                </Link>
                 <IconButton aria-label="Followings" color="default">
                     <Badge badgeContent={2} color="error">
                         <PersonOutlineIcon/>

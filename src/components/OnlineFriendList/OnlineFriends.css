@@ -10,25 +10,3 @@
     align-items: center;
     gap: 12px;
 }
-
-.online-friend-img-container > img{
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.online-friend-img-container {
-    position: relative;
-}
-
-.green-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: limegreen;
-    position: absolute;
-    top: -2px;
-    right: 0;
-    border: 2px solid white;
-}

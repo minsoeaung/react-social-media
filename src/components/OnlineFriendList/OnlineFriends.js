@@ -1,19 +1,22 @@
 import './OnlineFriends.css'
+import {Avatar, Badge} from "@mui/material";
 
 const OnlineFriendList = ({users}) => {
-    const images = process.env.REACT_APP_SERVER_URI + 'images/'
-
     return (
         <section className="online-friend-list">
             {users.map(user => (
                 <div key={user.id} className="online-friend-list-item">
-                    <div className="online-friend-img-container">
-                        <img
-                            src={images + user.profilePicture}
-                            alt={`${user.username}`}
+                    <Badge
+                        color='success'
+                        overlap="circular"
+                        variant="dot"
+                        anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
+                    >
+                        <Avatar
+                            src="/asset/person/noAvatar.png"
+                            alt="s"
                         />
-                        <span className="green-dot"/>
-                    </div>
+                    </Badge>
                     <p>{user.username}</p>
                 </div>
             ))}

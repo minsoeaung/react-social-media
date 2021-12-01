@@ -6,6 +6,7 @@ import SignUp from "./views/SignUp/SignUp";
 import React, {useContext} from "react";
 import Main from "./views/Main";
 import {AuthContext} from "./context/AuthContext";
+import Chat from "./views/chat/Chat";
 
 function App() {
     const {user} = useContext(AuthContext)
@@ -16,6 +17,7 @@ function App() {
                 <Route exact path="/" element={user ? <Main/> : <Login/>}>
                     <Route index element={<Home/>}/>
                     <Route path="/profile/:username" element={<Profile/>}/>
+                    <Route path="/chat" element={<Chat/>}/>
                 </Route>
 
                 <Route path="/login" element={<Login/>}/>

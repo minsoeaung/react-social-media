@@ -1,0 +1,8 @@
+.chatmenu {
+    flex: 0.8;
+}
+
+.chatmenu-container {
+    padding: 20px;
+    height: 100%;
+}

@@ -8,6 +8,8 @@ import fetchAllConversations from "../../api/fetchAllConversations";
 
 const Chat = () => {
     const [conversations, setConversations] = useState([])
+    const [currChat, setCurrChat] = useState(null)
+    const [messages, setMessages] = useState([])
     const {user} = useContext(AuthContext)
 
     useEffect(() => {
@@ -26,9 +28,9 @@ const Chat = () => {
             margin="0 auto"
         >
             {/* all the conversations */}
-            <ChatMenu conversations={conversations} currentUser={user}/>
+            <ChatMenu conversations={conversations} currentUser={user} setCurrChat={setCurrChat}/>
             {/* chat messages */}
-            <ChatBox/>
+            <ChatBox currChat={currChat} messages={messages} setMessages={setMessages} user={user}/>
             {/* online friends list */}
             <SideBar/>
         </Stack>

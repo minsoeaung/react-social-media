@@ -4,12 +4,14 @@ import {Avatar, Skeleton} from "@mui/material";
 import fetchUser from "../../api/fetchUser";
 import {baseUrl} from "../../shared/baseUrl";
 
-const ChatMenu = ({conversations, currentUser}) => {
+const ChatMenu = ({conversations, currentUser, setCurrChat}) => {
     return (
         <section className="chatmenu">
             <div className="chatmenu-container">
                 {conversations.map(conv => (
-                    <Conversation key={conv._id} conversation={conv} currentUser={currentUser}/>
+                    <div key={conv._id} onClick={() => setCurrChat(conv)}>
+                        <Conversation conversation={conv} currentUser={currentUser}/>
+                    </div>
                 ))}
             </div>
         </section>

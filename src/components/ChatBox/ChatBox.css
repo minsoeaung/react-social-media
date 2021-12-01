@@ -16,6 +16,18 @@
     padding-right: 20px;
 }
 
+.no-conversation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.no-conversation > img {
+    width: 100px;
+}
+
 .chatbox-bottom {
     display: flex;
     align-items: flex-end;

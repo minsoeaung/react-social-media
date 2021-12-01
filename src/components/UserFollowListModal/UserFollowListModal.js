@@ -6,8 +6,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import {baseUrl} from "../../shared/baseUrl";
 import {useEffect, useState} from "react";
-import getFollowers from "../../api/getFollowers";
-import getFollowings from "../../api/getFollowings";
+import fetchFollowers from "../../api/fetchFollowers";
+import fetchFollowings from "../../api/fetchFollowings";
 import UserListLoading from "../Loadings/UserListLoading";
 import {useNavigate} from "react-router-dom";
 import ListItemButton from '@mui/material/ListItemButton';
@@ -27,9 +27,9 @@ const UserFollowListModal = ({user, open, setOpen, isFollowers}) => {
 
         async function getList(userId) {
             if (isFollowers) {
-                return await getFollowers(userId)
+                return await fetchFollowers(userId)
             } else {
-                return await getFollowings(userId)
+                return await fetchFollowings(userId)
             }
         }
 

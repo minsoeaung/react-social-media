@@ -8,10 +8,14 @@ import {baseUrl} from "../shared/baseUrl";
 *   'isID' help that
 * */
 const fetchUser = async (user, isID) => {
-    const res = isID
-        ? await axios.get(`${baseUrl}users?userId=${user}`)
-        : await axios.get(`${baseUrl}users?username=${user}`)
-    return res.data
+    try {
+        const res = isID
+            ? await axios.get(`${baseUrl}users?userId=${user}`)
+            : await axios.get(`${baseUrl}users?username=${user}`)
+        return res.data
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 export default fetchUser

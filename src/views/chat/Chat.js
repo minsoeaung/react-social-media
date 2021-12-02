@@ -10,6 +10,7 @@ const Chat = () => {
     const [conversations, setConversations] = useState([])
     const [currChat, setCurrChat] = useState(null)
     const [messages, setMessages] = useState([])
+    const [inputMsg, setInputMsg] = useState("")
     const {user} = useContext(AuthContext)
 
     useEffect(() => {
@@ -28,9 +29,20 @@ const Chat = () => {
             margin="0 auto"
         >
             {/* all the conversations */}
-            <ChatMenu conversations={conversations} currentUser={user} setCurrChat={setCurrChat}/>
+            <ChatMenu
+                conversations={conversations}
+                currentUser={user}
+                setCurrChat={setCurrChat}
+            />
             {/* chat messages */}
-            <ChatBox currChat={currChat} messages={messages} setMessages={setMessages} user={user}/>
+            <ChatBox
+                currChat={currChat}
+                messages={messages}
+                setMessages={setMessages}
+                user={user}
+                inputMsg={inputMsg}
+                setInputMsg={setInputMsg}
+            />
             {/* online friends list */}
             <SideBar/>
         </Stack>

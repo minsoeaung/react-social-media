@@ -4,14 +4,26 @@ import {Button, TextField} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import {useEffect} from "react";
 import fetchMessages from "../../api/fetchMessages";
+import sendMsg from "../../api/sendMsg";
 
-const ChatBox = ({currChat, messages, setMessages, user}) => {
+const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg}) => {
     useEffect(() => {
         if (currChat) {
             fetchMessages(currChat._id)
                 .then(messages => setMessages(messages))
         }
     }, [currChat, setMessages])
+
+    function handleSend() {
+        const message = {
+            conversationId: currChat._id,
+            sender: user._id,
+            text: inputMsg
+        }
+        sendMsg(message)
+            .then(r => setMessages([...messages, r]))
+        setInputMsg("")
+    }
 
     return (
         <main className="chatbox">
@@ -37,8 +49,14 @@ const ChatBox = ({currChat, messages, setMessages, user}) => {
                         placeholder="Message..."
                         color='info'
                         size='small'
+                        value={inputMsg}
+                        onChange={e => setInputMsg(e.target.value)}
                     />
-                    <Button variant="contained" endIcon={<SendIcon/>}>
+                    <Button
+                        variant="contained"
+                        endIcon={<SendIcon/>}
+                        onClick={handleSend}
+                    >
                         Send
                     </Button>
                 </div>

@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import fetchMessages from "../../api/fetchMessages";
 import sendMsg from "../../api/sendMsg";
 
-const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg}) => {
+const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg, socket}) => {
     const [messagesEnd, setMessagesEnd] = useState(null)
 
     useEffect(() => {
@@ -27,6 +27,14 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg})
                 sender: user._id,
                 text: inputMsg
             }
+            const receiverId = currChat.members.find(member => member !== user._id)
+
+            socket.current.emit('sendMsg', {
+                senderId: user._id,
+                receiverId: receiverId,
+                text: inputMsg
+            })
+
             sendMsg(message)
                 .then(r => setMessages([...messages, r]))
             setInputMsg("")

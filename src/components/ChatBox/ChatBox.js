@@ -2,11 +2,13 @@ import './ChatBox.css'
 import ChatMessage from "../ChatMessage/ChatMessage";
 import {Button, TextField} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import fetchMessages from "../../api/fetchMessages";
 import sendMsg from "../../api/sendMsg";
 
 const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg}) => {
+    const [messagesEnd, setMessagesEnd] = useState(null)
+
     useEffect(() => {
         if (currChat) {
             fetchMessages(currChat._id)
@@ -14,15 +16,21 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg})
         }
     }, [currChat, setMessages])
 
+    useEffect(() => {
+        messagesEnd?.scrollIntoView({behavior: "smooth"});
+    }, [messages, messagesEnd])
+
     function handleSend() {
-        const message = {
-            conversationId: currChat._id,
-            sender: user._id,
-            text: inputMsg
+        if (inputMsg) {
+            const message = {
+                conversationId: currChat._id,
+                sender: user._id,
+                text: inputMsg
+            }
+            sendMsg(message)
+                .then(r => setMessages([...messages, r]))
+            setInputMsg("")
         }
-        sendMsg(message)
-            .then(r => setMessages([...messages, r]))
-        setInputMsg("")
     }
 
     return (
@@ -31,9 +39,12 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg})
                 <div className="chatbox-top">
                     {currChat
                         ?
-                        messages.map(msg =>
-                            <ChatMessage message={msg} key={msg._id} ownMessage={msg.sender === user._id}/>
-                        )
+                        <>
+                            {messages.map(msg =>
+                                <ChatMessage message={msg} key={msg._id} ownMessage={msg.sender === user._id}/>
+                            )}
+                            <div ref={el => setMessagesEnd(el)}/>
+                        </>
                         :
                         <div className="no-conversation">
                             <img src='assets/doge.png' alt='doge'/>

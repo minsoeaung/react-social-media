@@ -14,6 +14,7 @@ const Chat = () => {
     const [messages, setMessages] = useState([])
     const [inputMsg, setInputMsg] = useState("")
     const [newMsg, setNewMsg] = useState(null) // new msg comes from socket server
+    const [onlineFriends, setOnlineFriends] = useState([])
     const {user} = useContext(AuthContext)
     const socket = useRef()
 
@@ -34,13 +35,15 @@ const Chat = () => {
     *   User going online and getting online fri list
     * */
     useEffect(() => {
-        // send userId to server
+        // register in socket server to go online
         socket.current.emit('addUser', user._id)
-        // receive online users from server
-        socket.current.on('getUsers', users => {
-            console.log(users)
+
+        // receive online user list from server and set online friend list
+        socket.current.on('getUsers', onlineUsers => {
+            const onlineFriendIdList = user.followings.filter(friId => onlineUsers.some(user => user.userId === friId))
+            setOnlineFriends(onlineFriendIdList)
         })
-    }, [user._id])
+    }, [user])
 
 
     /*
@@ -94,7 +97,11 @@ const Chat = () => {
                 socket={socket}
             />
             {/* online friends list */}
-            <SideBar/>
+            <SideBar
+                onlineFriendIdList={onlineFriends}
+                currentUserId={user._id}
+                setCurrChat={setCurrChat}
+            />
         </Stack>
     )
 }

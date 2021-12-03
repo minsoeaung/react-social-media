@@ -1,13 +1,16 @@
 import './SideBar.css'
-import OnlineFriends from "../OnlineFriendList/OnlineFriends";
-import {Users} from '../../dummyData'
+import OnlineFriendList from "../OnlineFriendList/OnlineFriendList";
 
-const SideBar = () => {
+const SideBar = ({onlineFriendIdList, currentUserId, setCurrChat}) => {
     return (
         <aside className="sidebar">
             <div className="sidebar-container">
                 <h3>Online Friends</h3>
-                <OnlineFriends users={Users}/>
+                <OnlineFriendList
+                    onlineFriendIdList={onlineFriendIdList}
+                    currentUserId={currentUserId}
+                    setCurrChat={setCurrChat}
+                />
             </div>
         </aside>
     )

@@ -9,17 +9,25 @@ import sendMsg from "../../api/sendMsg";
 const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg, socket}) => {
     const [messagesEnd, setMessagesEnd] = useState(null)
 
+
+    /*
+    *   Fetch all messages
+    * */
     useEffect(() => {
-        if (currChat) {
-            fetchMessages(currChat._id)
-                .then(messages => setMessages(messages))
-        }
+        if (currChat) fetchMessages(currChat._id).then(messages => setMessages(messages))
     }, [currChat, setMessages])
 
+
+    /*
+    *   Scroll to bottom of messages
+    * */
     useEffect(() => {
-        messagesEnd?.scrollIntoView({behavior: "smooth"});
+        messagesEnd?.scrollIntoView({behavior: "smooth"})
     }, [messages, messagesEnd])
 
+    /*
+    *   Sending message
+    * */
     function handleSend() {
         if (inputMsg) {
             const message = {
@@ -35,8 +43,8 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg, 
                 text: inputMsg
             })
 
-            sendMsg(message)
-                .then(r => setMessages([...messages, r]))
+            sendMsg(message).then(r => setMessages([...messages, r]))
+
             setInputMsg("")
         }
     }
@@ -49,7 +57,7 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg, 
                         ?
                         <>
                             {messages.map(msg =>
-                                <ChatMessage message={msg} key={msg._id} ownMessage={msg.sender === user._id}/>
+                                <ChatMessage key={msg._id} message={msg} ownMessage={msg.sender === user._id}/>
                             )}
                             <div ref={el => setMessagesEnd(el)}/>
                         </>

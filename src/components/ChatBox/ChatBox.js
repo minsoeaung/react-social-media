@@ -55,12 +55,14 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg, 
                 <div className="chatbox-top">
                     {currChat
                         ?
-                        <>
+                        <div>
                             {messages.map(msg =>
-                                <ChatMessage key={msg._id} message={msg} ownMessage={msg.sender === user._id}/>
+                                <div key={msg._id}>
+                                    <ChatMessage message={msg} ownMessage={msg.sender === user._id}/>
+                                </div>
                             )}
                             <div ref={el => setMessagesEnd(el)}/>
-                        </>
+                        </div>
                         :
                         <div className="no-conversation">
                             <img src='assets/doge.png' alt='doge'/>

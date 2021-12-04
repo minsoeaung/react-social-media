@@ -24,3 +24,7 @@
 .chat-user:hover {
     background-color: #e8e3e3;
 }
+
+.conversation > .active {
+    background-color: #dae7ea;
+}

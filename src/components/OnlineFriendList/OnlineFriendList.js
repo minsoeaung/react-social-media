@@ -4,8 +4,11 @@ import {baseUrl} from "../../shared/baseUrl";
 import {useEffect, useState} from "react";
 import fetchFollowings from "../../api/fetchFollowings";
 import fetchOneConversation from "../../api/fetchOneConversation";
+import {useLocation, useNavigate} from "react-router-dom";
 
 const OnlineFriendList = ({onlineFriendIdList, currentUserId, setCurrChat}) => {
+    let pathname = useLocation().pathname;
+    const navigate = useNavigate()
     const [friends, setFriends] = useState([])
     const [onlineFriends, setOnlineFriends] = useState([])
 
@@ -31,6 +34,9 @@ const OnlineFriendList = ({onlineFriendIdList, currentUserId, setCurrChat}) => {
     *   when user click on one of online user.
     * */
     const handleClick = async (user) => {
+        if (pathname === '/') {
+            navigate('/chat')
+        }
         const conversationData = await fetchOneConversation(currentUserId, user._id)
         setCurrChat(conversationData)
     }

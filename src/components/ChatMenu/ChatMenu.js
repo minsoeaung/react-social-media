@@ -4,13 +4,13 @@ import {Avatar, Skeleton} from "@mui/material";
 import fetchUser from "../../api/fetchUser";
 import {baseUrl} from "../../shared/baseUrl";
 
-const ChatMenu = ({conversations, currentUser, setCurrChat}) => {
+const ChatMenu = ({conversations, currentUser, currChat, setCurrChat}) => {
     return (
         <section className="chatmenu">
             <div className="chatmenu-container">
                 {conversations.map(conv => (
                     <div key={conv._id} onClick={() => setCurrChat(conv)}>
-                        <Conversation conversation={conv} currentUser={currentUser}/>
+                        <Conversation conversation={conv} currChat={currChat} currentUser={currentUser}/>
                     </div>
                 ))}
             </div>
@@ -18,7 +18,7 @@ const ChatMenu = ({conversations, currentUser, setCurrChat}) => {
     )
 }
 
-const Conversation = ({conversation, currentUser}) => {
+const Conversation = ({conversation, currChat, currentUser}) => {
     const [user, setUser] = useState(null)
 
     useEffect(() => {
@@ -30,7 +30,7 @@ const Conversation = ({conversation, currentUser}) => {
 
     return (
         <div className="conversation">
-            <div className="chat-user">
+            <div className={`chat-user${conversation ? conversation._id === currChat?._id ? " active" : "" : ""}`}>
                 {user
                     ?
                     <>

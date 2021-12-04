@@ -2,12 +2,14 @@ import './ChatBox.css'
 import ChatMessage from "../ChatMessage/ChatMessage";
 import {Button, TextField} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import fetchMessages from "../../api/fetchMessages";
 import sendMsg from "../../api/sendMsg";
+import {SocketContext} from "../../context/Socket";
 
-const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg, socket}) => {
+const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg}) => {
     const [messagesEnd, setMessagesEnd] = useState(null)
+    const socket = useContext(SocketContext);
 
 
     /*
@@ -37,7 +39,7 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg, 
             }
             const receiverId = currChat.members.find(member => member !== user._id)
 
-            socket.current.emit('sendMsg', {
+            socket.emit('sendMsg', {
                 senderId: user._id,
                 receiverId: receiverId,
                 text: inputMsg

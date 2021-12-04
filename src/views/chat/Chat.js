@@ -3,20 +3,17 @@ import SideBar from "../../components/SideBar/SideBar";
 import ChatMenu from '../../components/ChatMenu/ChatMenu'
 import ChatBox from '../../components/ChatBox/ChatBox'
 import {AuthContext} from "../../context/AuthContext";
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import fetchAllConversations from "../../api/fetchAllConversations";
-import {io} from "socket.io-client";
-import {socketUrl} from "../../shared/socketUrl";
+import {SocketContext} from "../../context/Socket";
 
-const Chat = () => {
+const Chat = ({onlineFriendIdList, currChat, setCurrChat}) => {
     const [conversations, setConversations] = useState([])
-    const [currChat, setCurrChat] = useState(null)
     const [messages, setMessages] = useState([])
     const [inputMsg, setInputMsg] = useState("")
     const [newMsg, setNewMsg] = useState(null) // new msg comes from socket server
-    const [onlineFriends, setOnlineFriends] = useState([])
     const {user} = useContext(AuthContext)
-    const socket = useRef()
+    const socket = useContext(SocketContext);
 
     useEffect(() => {
         fetchAllConversations(user._id).then(convData => setConversations(convData))
@@ -24,40 +21,17 @@ const Chat = () => {
 
 
     /*
-    *   Connect to socket server
-    * */
-    useEffect(() => {
-        socket.current = io(socketUrl)
-    }, [])
-
-
-    /*
-    *   User going online and getting online fri list
-    * */
-    useEffect(() => {
-        // register in socket server to go online
-        socket.current.emit('addUser', user._id)
-
-        // receive online user list from server and set online friend list
-        socket.current.on('getUsers', onlineUsers => {
-            const onlineFriendIdList = user.followings.filter(friId => onlineUsers.some(user => user.userId === friId))
-            setOnlineFriends(onlineFriendIdList)
-        })
-    }, [user])
-
-
-    /*
     *   Receive message from socket server
     * */
     useEffect(() => {
-        socket.current.on('getMsg', data => {
+        socket.on('getMsg', data => {
             setNewMsg({
                 sender: data.senderId,
                 text: data.text,
                 createdAt: Date.now()
             })
         })
-    }, [])
+    }, [socket])
 
 
     /*
@@ -84,6 +58,7 @@ const Chat = () => {
             <ChatMenu
                 conversations={conversations}
                 currentUser={user}
+                currChat={currChat}
                 setCurrChat={setCurrChat}
             />
             {/* chat messages */}
@@ -94,11 +69,10 @@ const Chat = () => {
                 user={user}
                 inputMsg={inputMsg}
                 setInputMsg={setInputMsg}
-                socket={socket}
             />
             {/* online friends list */}
             <SideBar
-                onlineFriendIdList={onlineFriends}
+                onlineFriendIdList={onlineFriendIdList}
                 currentUserId={user._id}
                 setCurrChat={setCurrChat}
             />

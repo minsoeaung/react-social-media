@@ -35,6 +35,11 @@ const UserFollowListModal = ({user, open, setOpen, isFollowers}) => {
 
         getList(user._id).then((list) => setList(list))
         setIsLoading(false)
+
+        // clean
+        return () => {
+            setList([])
+        }
     }, [isFollowers, open, user._id])
 
     const handleClickListItem = (username) => {

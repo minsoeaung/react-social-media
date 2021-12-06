@@ -22,6 +22,7 @@ const Login = () => {
             setErr(true)
         } else {
             navigate('/')
+            window.location.reload()
         }
     }
 

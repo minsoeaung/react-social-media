@@ -58,7 +58,7 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg})
                     {currChat
                         ?
                         <div>
-                            {messages.map(msg =>
+                            {messages?.map(msg =>
                                 <div key={msg._id}>
                                     <ChatMessage message={msg} ownMessage={msg.sender === user._id}/>
                                 </div>

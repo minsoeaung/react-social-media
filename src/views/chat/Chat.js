@@ -2,17 +2,15 @@ import {Stack} from "@mui/material";
 import SideBar from "../../components/SideBar/SideBar";
 import ChatMenu from '../../components/ChatMenu/ChatMenu'
 import ChatBox from '../../components/ChatBox/ChatBox'
-import {AuthContext} from "../../context/AuthContext";
 import {useContext, useEffect, useState} from "react";
 import fetchAllConversations from "../../api/fetchAllConversations";
 import {SocketContext} from "../../context/Socket";
 
-const Chat = ({onlineFriendIdList, currChat, setCurrChat}) => {
+const Chat = ({user, onlineFriendIdList, currChat, setCurrChat}) => {
     const [conversations, setConversations] = useState([])
     const [messages, setMessages] = useState([])
     const [inputMsg, setInputMsg] = useState("")
     const [newMsg, setNewMsg] = useState(null) // new msg comes from socket server
-    const {user} = useContext(AuthContext)
     const socket = useContext(SocketContext);
 
     useEffect(() => {

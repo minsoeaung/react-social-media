@@ -4,8 +4,7 @@
 }
 
 .create-post-container {
-    border: 1px solid #c4c0c0;
-    border-radius: 3px;
+    border: 1px solid #10162F;
     padding: 15px 15px;
     background-color: white;
 }
@@ -22,13 +21,12 @@
     padding: 3px 10px;
     height: 30px;
     border: 1px solid rgba(0, 0, 0, 0.0975);
-    border-radius: 3px;
     font-size: 14px;
 }
 
 .create-post-top > input:focus {
     outline: none !important;
-    border: 1px solid #c4c0c0;
+    border: 1px solid  #10162F;
 }
 
 .post-button {

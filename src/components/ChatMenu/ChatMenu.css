@@ -5,6 +5,7 @@
 .chatmenu-container {
     padding: 20px;
     height: 100%;
+    border-right: 1px solid #10162F;
 }
 
 .conversation {
@@ -18,13 +19,14 @@
     font-weight: 500;
     padding: 10px;
     cursor: pointer;
-    border-radius: 5px;
 }
 
 .chat-user:hover {
-    background-color: #e8e3e3;
+    background-color: #dae7ea;
 }
 
 .conversation > .active {
-    background-color: #dae7ea;
+    border-top: 1px solid #10162F;
+    border-bottom: 1px solid #10162F;
+    background-color: rgba(255, 255, 255, 0.95);
 }

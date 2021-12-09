@@ -11,11 +11,12 @@ const Chat = ({user, onlineFriendIdList, currChat, setCurrChat}) => {
     const [messages, setMessages] = useState([])
     const [inputMsg, setInputMsg] = useState("")
     const [newMsg, setNewMsg] = useState(null) // new msg comes from socket server
+    const [reFetch, setReFetch] = useState(1) // use to re-fetch all conversations
     const socket = useContext(SocketContext);
 
     useEffect(() => {
         fetchAllConversations(user._id).then(convData => setConversations(convData))
-    }, [user._id])
+    }, [user._id, reFetch])
 
 
     /*
@@ -58,6 +59,7 @@ const Chat = ({user, onlineFriendIdList, currChat, setCurrChat}) => {
                 currentUser={user}
                 currChat={currChat}
                 setCurrChat={setCurrChat}
+                setReFetch={setReFetch}
             />
             {/* chat messages */}
             <ChatBox

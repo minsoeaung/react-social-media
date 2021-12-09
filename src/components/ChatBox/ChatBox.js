@@ -31,7 +31,7 @@ const ChatBox = ({currChat, messages, setMessages, user, inputMsg, setInputMsg})
     *   Sending message
     * */
     function handleSend() {
-        if (inputMsg) {
+        if (inputMsg && currChat) {
             const message = {
                 conversationId: currChat._id,
                 sender: user._id,

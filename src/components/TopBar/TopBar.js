@@ -45,7 +45,7 @@ const TopBar = () => {
             </div>
             <div className="topbar-mid">
                 <SearchIcon className="search-icon"/>
-                <input type="text" placeholder="Search..."/>
+                <input type="text" placeholder="Search user..."/>
             </div>
             <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
                 <Tooltip title="Feed">

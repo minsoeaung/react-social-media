@@ -8,6 +8,21 @@
     border-right: 1px solid #10162F;
 }
 
+.chatmenu-container > input {
+    background-color: #fafafa;
+    margin-bottom: 22px;
+    padding: 3px 20px 3px 33px;
+    height: 30px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.0975);
+    font-size: 14px;
+}
+
+.chatmenu-container > input:focus {
+    outline: none !important;
+    border: 1px solid #10162F;
+}
+
 .conversation {
     margin-bottom: 2px;
 }

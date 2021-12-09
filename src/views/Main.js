@@ -5,9 +5,7 @@ const Main = () => {
     return (
         <div>
             <TopBar/>
-            <div style={{backgroundColor: "#FFF0E5", fontFamily: "Roboto"}}>
-                <Outlet/>
-            </div>
+            <Outlet/>
         </div>
     )
 }

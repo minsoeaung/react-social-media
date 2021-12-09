@@ -1,5 +1,4 @@
 import './TopBar.css'
-import SearchIcon from '@mui/icons-material/Search';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
@@ -8,11 +7,27 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext";
 import {useContext, useState} from "react";
 import {baseUrl} from "../../shared/baseUrl";
-import {Avatar, Badge, Box, IconButton, ListItemIcon, MenuItem, Tooltip} from "@mui/material";
+import {
+    Alert,
+    Avatar,
+    Backdrop,
+    Badge,
+    Box,
+    CircularProgress,
+    IconButton,
+    ListItemIcon,
+    MenuItem,
+    Snackbar,
+    Tooltip
+} from "@mui/material";
 import {Logout} from "@mui/icons-material";
 import Menu from '@mui/material/Menu';
+import fetchUser from "../../api/fetchUser";
 
 const TopBar = () => {
+    const [searchInput, setSearchInput] = useState('')
+    const [isSearching, setIsSearching] = useState(false)
+    const [snackbarOpen, setSnackbarOpen] = useState(false)
     const {user} = useContext(AuthContext)
     const location = useLocation();
     const navigate = useNavigate()
@@ -38,14 +53,45 @@ const TopBar = () => {
         localStorage.clear()
         window.location.reload()
     }
+
+    const handleKeyDown = async (e) => {
+        if (e.key === 'Enter') {
+            setIsSearching(true)
+            try {
+                const userData = await fetchUser(searchInput, false)
+                navigate(`profile/${userData.username}`)
+                setSearchInput("")
+            } catch (e) {
+                setSnackbarOpen(true)
+                setSearchInput("")
+            }
+            setIsSearching(false)
+        }
+    }
+
+    const handleSnackBarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackbarOpen(false);
+    };
+
+
     return (
         <div className="topbar-container">
             <div className="topbar-left">
                 <Link to="/">React Social</Link>
             </div>
             <div className="topbar-mid">
-                <SearchIcon className="search-icon"/>
-                <input type="text" placeholder="Search user..."/>
+                <input
+                    type="text"
+                    placeholder="Search user..."
+                    value={searchInput}
+                    onChange={e => setSearchInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    disabled={isSearching}
+                />
             </div>
             <Box sx={{display: 'flex', alignItems: 'center', textAlign: 'center'}}>
                 <Tooltip title="Feed">
@@ -126,6 +172,25 @@ const TopBar = () => {
                     Logout
                 </MenuItem>
             </Menu>
+
+            {/*  when user interact with search box  */}
+
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={handleSnackBarClose}
+                anchorOrigin={{vertical: 'top', horizontal: 'center'}}
+            >
+                <Alert onClose={handleSnackBarClose} severity="error" sx={{width: '100%'}}>User does not exist.</Alert>
+            </Snackbar>
+            <div>
+                <Backdrop
+                    sx={{color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1}}
+                    open={isSearching}
+                >
+                    <CircularProgress color="inherit"/>
+                </Backdrop>
+            </div>
         </div>
     );
 }
